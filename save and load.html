@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Save & Load User Info</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; }
+    label, input { display: block; margin: 10px 0; }
+    button { margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <h1>User Info</h1>
+
+  <label>
+    Name:
+    <input type="text" id="nameBox" placeholder="Enter your name">
+  </label>
+
+  <label>
+    Age:
+    <input type="number" id="ageBox" placeholder="Enter your age">
+  </label>
+
+  <button id="saveBtn">Save</button>
+  <button id="loadBtn">Load</button>
+
+  <script>
+    const nameBox = document.getElementById('nameBox');
+    const ageBox  = document.getElementById('ageBox');
+    const saveBtn = document.getElementById('saveBtn');
+    const loadBtn = document.getElementById('loadBtn');
+
+    saveBtn.addEventListener('click', () => {
+      const name = nameBox.value.trim();
+      const age  = ageBox.value.trim();
+      if (!name || !age) return alert('Please enter both name and age.');
+
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userAge', age);
+      alert('Saved!');
+    });
+
+    loadBtn.addEventListener('click', () => {
+      const savedName = localStorage.getItem('userName');
+      const savedAge  = localStorage.getItem('userAge');
+
+      if (savedName === null || savedAge === null) {
+        return alert('No data found. Please save data first.');
+      }
+
+      nameBox.value = savedName;
+      ageBox.value  = savedAge;
+    });
+  </script>
+</body>
+</html>
